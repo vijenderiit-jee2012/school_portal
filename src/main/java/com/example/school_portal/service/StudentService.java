@@ -19,8 +19,7 @@ public class StudentService {
     private ClassroomRepository classroomRepository;
     @Autowired
     private TeacherRepository teacherRepository;
-    @Autowired
-    private UserRepository userRepository;
+
 
     public Student createStudent(Student student) {
         return studentRepository.save(student);
@@ -39,7 +38,6 @@ public class StudentService {
     }
 
     public boolean assignStudentToClassroom(String username, Long studentId, Long classroomId) throws Exception {
-        User user = userRepository.findByUsername(username);
         Optional<Student> studentOpt = studentRepository.findById(studentId);
         Optional<Classroom> classroomOpt = classroomRepository.findById(classroomId);
 
@@ -49,20 +47,6 @@ public class StudentService {
 
         Student student = studentOpt.get();
         Classroom classroom = classroomOpt.get();
-
-        if (user.getRole().equals(Constants.ADMIN)) {
-            student.setClassroom(classroom);
-            studentRepository.save(student);
-        }
-        else if (user.getRole().equals(Constants.TEACHER)){
-            Optional<Teacher> teacherOpt = teacherRepository.findById(user.getId());
-            if (teacherOpt.isPresent() && teacherOpt.get().getClassrooms().contains(classroom)) {
-                student.setClassroom(classroom);
-                studentRepository.save(student);
-            }
-        } else{
-            return false;
-        }
-        return true;
+        return false;
     }
 }

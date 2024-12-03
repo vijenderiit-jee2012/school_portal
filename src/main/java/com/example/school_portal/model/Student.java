@@ -7,8 +7,10 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Student extends User {
+public class Student {
     private String name;
+    private String userName;
+    private String password;
     private String email;
     private int mail;
 
@@ -25,9 +27,23 @@ public class Student extends User {
     )
     private List<Subject> subjects;
 
-    // Constructor
-    public Student() {
-        setRole(Constants.STUDENT);
+    @Id
+    private Long id;
+
+    public String getUserName(){
+        return userName;
+    }
+
+    public void setUserName(String userName){
+        this.userName = userName;
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
     }
 
     // Getters and Setters
@@ -55,6 +71,7 @@ public class Student extends User {
         this.mail = mail;
     }
 
+    @JsonBackReference
     public Classroom getClassroom() {
         return classroom;
     }
@@ -69,5 +86,13 @@ public class Student extends User {
 
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

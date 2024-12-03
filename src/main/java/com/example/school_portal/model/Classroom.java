@@ -16,7 +16,6 @@ public class Classroom {
     private String name;
 
     @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<Student> students;  // One classroom has many students
 
     @ManyToMany
@@ -52,6 +51,7 @@ public class Classroom {
         this.name = name;
     }
 
+    @JsonManagedReference
     public List<Student> getStudents() {
         return students;
     }

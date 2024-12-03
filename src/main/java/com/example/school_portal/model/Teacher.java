@@ -1,16 +1,15 @@
 package com.example.school_portal.model;
 
-import com.example.school_portal.helper.Constants;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
-public class Teacher extends User {
+public class Teacher{
     private String name;
+
+    private String userName;
+    private String password;
     private String email;
     private int age;
 
@@ -29,10 +28,23 @@ public class Teacher extends User {
             inverseJoinColumns = @JoinColumn(name = "classroom_id")
     )
     private List<Classroom> classrooms;
+    @Id
+    private Long id;
 
-    // Constructor
-    public Teacher() {
-        setRole(Constants.TEACHER);
+    public String getUserName(){
+        return userName;
+    }
+
+    public void setUserName(String userName){
+        this.userName = userName;
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
     }
 
     // Getters and Setters
@@ -74,5 +86,13 @@ public class Teacher extends User {
 
     public void setClassrooms(List<Classroom> classrooms) {
         this.classrooms = classrooms;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

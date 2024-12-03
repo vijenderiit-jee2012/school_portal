@@ -26,7 +26,7 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<List<Student>> getAllStudents() {
         List<Student> students = studentService.getAllStudents();
-
+        System.out.println(students.getFirst().getClassroom());
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
 }
