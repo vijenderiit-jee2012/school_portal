@@ -6,8 +6,10 @@ import java.util.List;
 
 @Entity
 public class Teacher{
-    private String name;
+    @Id
+    private Long id;
 
+    private String name;
     private String userName;
     private String password;
     private String email;
@@ -28,8 +30,6 @@ public class Teacher{
             inverseJoinColumns = @JoinColumn(name = "classroom_id")
     )
     private List<Classroom> classrooms;
-    @Id
-    private Long id;
 
     public String getUserName(){
         return userName;

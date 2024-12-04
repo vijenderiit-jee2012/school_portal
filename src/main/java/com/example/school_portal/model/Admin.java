@@ -1,5 +1,6 @@
 package com.example.school_portal.model;
 
+
 import com.example.school_portal.helper.Constants;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -7,27 +8,14 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Student {
+public class Admin {
+    @Id
+    private Long id;
+
     private String name;
     private String userName;
     private String password;
     private String email;
-
-    @ManyToOne
-    @JoinColumn(name = "classroom_id", nullable = false)
-    @JsonBackReference
-    private Classroom classroom;
-
-    @ManyToMany
-    @JoinTable(
-            name = "student_subject",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "subject_id")
-    )
-    private List<Subject> subjects;
-
-    @Id
-    private Long id;
 
     public String getUserName(){
         return userName;
@@ -60,23 +48,6 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @JsonBackReference
-    public Classroom getClassroom() {
-        return classroom;
-    }
-
-    public void setClassroom(Classroom classroom) {
-        this.classroom = classroom;
-    }
-
-    public List<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
     }
 
     public void setId(Long id) {
