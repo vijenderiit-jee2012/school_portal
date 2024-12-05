@@ -6,6 +6,10 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+
+import java.util.Collection;
 
 @Entity
 public class Admin {
@@ -13,19 +17,14 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Name is required")
     private String name;
 
-    @NotBlank(message = "Username is required")
-    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
     private String userName;
 
-    @NotBlank(message = "Password is required")
     private String password;
 
-    @Email(message = "Email should be valid")
-    @NotBlank(message = "Email is required")
     private String email;
+
 
     public void setUserName(String userName){
         this.userName = userName;
