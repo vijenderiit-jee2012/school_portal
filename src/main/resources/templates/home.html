@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home - Welcome</title>
+        <link rel="stylesheet" href="/css/styles.css"> <!-- External CSS file (Optional) -->
+    </head>
+    <body>
+        <!-- Header Section -->
+        <div class="header">
+            <h1>Welcome to the Home Page</h1>
+        </div>
+
+        <!-- Main Content Section -->
+        <div class="container">
+            <h2>Welcome, <span id="username">User</span>!</h2>
+            <p>You're successfully logged in. This is your home page.</p>
+            <p>You can now access protected content or log out.</p>
+
+            <!-- Logout Button -->
+            <form action="/logout" method="POST">
+                <button class="logout-btn" type="submit">Logout</button>
+            </form>
+        </div>
+
+        <!-- JavaScript to populate username dynamically (if required) -->
+        <script>
+            // If you have the username available in the session or through JavaScript, you can use it to dynamically set the username.
+            // This is just an example if you're sending the username from the backend or front end.
+            document.getElementById("username").innerText = "JohnDoe";  // Replace 'JohnDoe' with the actual username if needed.
+        </script>
+
+    </body>
+</html>

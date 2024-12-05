@@ -10,7 +10,10 @@
         <div class="login-container">
             <h2>Login</h2>
             <!-- Display error if present -->
-            <div class="error-message" th:if="${error}" th:text="${error}"></div>
+            <div id="response-message" class="response-message" style="display:none; color: green;"></div>
+            <!-- Error Message -->
+            <div class="error-message" id="error-message" style="display:none; color: red;"></div>
+
 
             <form action="/login" method="POST" id="loginForm"> <!-- Replace with your backend login URL -->
                 <div class="form-group">
@@ -21,22 +24,9 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="Enter your password" required>
                 </div>
-                <div class="form-group role-selection">
-                    <label>Select Role:</label>
-                    <div class="checkbox-group">
-                        <label>
-                            <input type="checkbox" name="role" value="student"> Student
-                        </label>
-                        <label>
-                            <input type="checkbox" name="role" value="teacher"> Teacher
-                        </label>
-                        <label>
-                            <input type="checkbox" name="role" value="admin"> Admin
-                        </label>
-                    </div>
-                </div>
-                <button type="submit" class="login-btn">Login</button>
+                <button type="submit" class="login-btn" id="LoginButton">Login</button>
             </form>
+            <p class="account-link">Don't have an account? <a href="/signup" class="login-link">Sign Up</a></p>
         </div>
         <script src="/js/login_validation.js"></script>
     </body>
