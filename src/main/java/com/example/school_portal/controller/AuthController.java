@@ -1,7 +1,11 @@
 package com.example.school_portal.controller;
 
+import ch.qos.logback.core.model.Model;
 import com.example.school_portal.model.Admin;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -33,11 +37,11 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @GetMapping("/login")
-    public String loginPage() {
+    public String loginPage(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "login";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login-process")
     public ResponseEntity<String> login(@Valid @RequestBody Admin admin, BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().getFirst().getDefaultMessage();
@@ -45,18 +49,15 @@ public class AuthController {
         }
         String password = admin.getPassword();
         Admin loggedAdmin = authService.authenticateUser(admin.getUserName(), password);
-
         if (loggedAdmin != null) {
             List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
-
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(admin.getUserName(), admin.getPassword(), authorities)
             );
-
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
             User authenticatedAdmin = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             session.setAttribute("currentUser", authenticatedAdmin);
+
             return new ResponseEntity<>("Login successful! Welcome "+ authenticatedAdmin.getUsername()+" : "+session.getId(), HttpStatus.OK);
         } else{
             return new ResponseEntity<>("Login failed! Either UserName or Password is Invalid", HttpStatus.UNAUTHORIZED);
@@ -84,8 +85,9 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/home")
-    public String homePage() {
-        return "home";
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpSession session) {
+        session.invalidate();
+        return new ResponseEntity<>("Logout successful", HttpStatus.OK);
     }
 }

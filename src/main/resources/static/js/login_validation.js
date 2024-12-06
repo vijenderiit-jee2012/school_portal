@@ -30,7 +30,7 @@ document.getElementById("LoginButton").addEventListener("click", async function 
     }
 
     if (validateForm(adminData) === true){
-        const response = await fetch('http://localhost:8080/login', {
+        const response = await fetch('http://localhost:8080/login-process', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ document.getElementById("LoginButton").addEventListener("click", async function 
             responseMessage.textContent = data;
             errorMessage.style.display = "none";
             responseMessage.style.display = "block";
-            window.location.href = '/home';
+            window.location.href = '/api/home';
         } else {
             errorMessage.textContent = data;
             errorMessage.style.display = "block";
